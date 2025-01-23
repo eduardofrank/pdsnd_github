@@ -5,9 +5,32 @@ import numpy as np
 
 pd.set_option('display.max_columns', None)
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {
+    'chicago': 'chicago.csv',
+    'new york city': 'new_york_city.csv',
+    'washington': 'washington.csv'
+}
+
+months = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
+days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']
+
+def get_user_input(prompt, valid_inputs):
+    """ 
+    Get and validate user input.
+
+    Args:
+        prompt (str): The prompt to display to the user.
+        valid_inputs (list): List of valid inputs.
+    
+    Returns:
+        str: Validated user input.
+    """
+    while True:
+        user_input = input(prompt).strip().lower()
+        if user_input in valid_inputs:
+            return user_input
+        print(f"Invalid input. Please choose from {', '.join(valid_inputs)}.")
+
 
 def get_filters():
     """
