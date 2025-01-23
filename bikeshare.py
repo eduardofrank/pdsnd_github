@@ -5,61 +5,47 @@ import numpy as np
 
 pd.set_option('display.max_columns', None)
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {
+    'chicago': 'chicago.csv',
+    'new york city': 'new_york_city.csv',
+    'washington': 'washington.csv'
+}
+
+months = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
+days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']
+
+def get_user_input(prompt, valid_inputs):
+    """ 
+    Get and validate user input.
+
+    Args:
+        prompt (str): The prompt to display to the user.
+        valid_inputs (list): List of valid inputs.
+    
+    Returns:
+        str: Validated user input.
+    """
+    while True:
+        user_input = input(prompt).strip().lower()
+        if user_input in valid_inputs:
+            return user_input
+        print(f"Invalid input. Please choose from {', '.join(valid_inputs)}.")
+
 
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
 
     Returns:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
-    Checks have been provided for month and day
-    All inputs have been normalized
-    Exceptions have been placed to catch ValueErrors
-    KeyboardInterrupt is allowed
+        tuple: city, month, day
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    while True:
-        try:
-            city = input('Type in a city. Choose from Chicago, New York City or Washington: ').strip().lower()  # Normalize input for consistency
-            if city in CITY_DATA:
-                print(f"Great! Data for {city.title()} is available.\n")
-                break
-            else:
-                raise ValueError(f"Sorry, not in dict.")
-        except ValueError:
-            print(f"\nSorry, '{city.title()}' is not available.\nChoose from 'Chicago', 'New York City' or 'Washington'. Please try again.\n")
-    # get user input for month (all, january, february, ... , june)
-    months = ['january', 'february', 'march', 'april', 'may', 'june', 'all'] # a list to check against
-    while True:
-        try:
-            month = input("Choose any month from 'January' to 'June', or type 'All' for the whole six months.: ").strip().lower()  # Normalize input for consistency
-            if month in months:
-                print("Thank you")
-                break
-            else:
-                raise ValueError(f"Sorry, not in list.")
-        except ValueError:
-            print(f"\nSorry, '{month}' is not available.\nChoose from 'January', 'February', 'March', 'April', 'May' or 'June'.\nYou may also type 'All' for no particular month.\n")
-    # get user input for day of week (all, monday, tuesday, ... sunday)
-    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all'] # a list to check against
-    while True:
-        try:
-            day = input("Choose any day of the week from 'Monday' to 'Sunday', or type 'All' for all days of the week.: ").strip().lower()  # Normalize input for consistency
-            if day in days:
-                print("Thank you")
-                break
-            else:
-                raise ValueError(f"Sorry, not in list.")
-        except ValueError:
-            print(f"\nSorry, '{day}' is not available.\nChoose from 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' or 'Sunday'.\nYou may also type 'All' for no particular day of the week.\n")
+
+    city = get_user_input('Type in a city. Choose from Chicago, New York City, or Washington: ', CITY_DATA.keys())
+    month = get_user_input("Choose any month from 'January' to 'June', or type 'All' for the whole six months: ", months)
+    day = get_user_input("Choose any day of the week from 'Monday' to 'Sunday', or type 'All' for all days of the week: ", days)
+
     print(f"Your filters are '{city.title()}', '{month.title()} and '{day.title()}'")
-    #print('-'*80)
     return city, month, day
 
 
@@ -220,17 +206,8 @@ def user_stats(df, city):
 
 
 def restart():
-    """ Handles the question of restart or not
-    """
-    while True:
-        response = input('Would you like to restart? Enter yes or no.\n')
-        if response.lower() == 'yes':
-            break
-        elif response.lower() == 'no':
-            break
-        else:
-            print("Type yes or no")
-    return response
+    """Handles the question of restart or not"""
+    return get_user_input('Would you like to restart? Enter yes or no: ', ['yes', 'no'])
 
 
 def chunk_gen(df):
@@ -239,27 +216,11 @@ def chunk_gen(df):
     def see_data():
         """ Handles the question of displaying any data
         """
-        while True:
-            response = input('Would you like to see the raw data five entries at a time? Enter yes or no.\n') # prompt to show or not the raw data
-            if response.lower() == 'yes':
-                break
-            elif response.lower() == 'no':
-                break
-            else:
-                print("Type yes or no")
-        return response
+        return get_user_input('Would you like to see the raw data five entries at a time? Enter yes or no: ', ['yes', 'no'])
     def more_data():
         """ Handles the question of displaying more data or not
         """
-        while True:
-            response = input('Would you like to see five more entries? Enter yes or no.\n') # prompt to display more data or not
-            if response.lower() == 'yes':
-                break
-            elif response.lower() == 'no':
-                break
-            else:
-                print("Type yes or no")
-        return response
+        return get_user_input('Would you like to see five more entries? Enter yes or no: ', ['yes', 'no'])
     def chunker(iterable, size):
         """ Yields the chunks of size-rows of data to be shown on screen
         """
