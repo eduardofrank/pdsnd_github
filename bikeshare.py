@@ -206,17 +206,8 @@ def user_stats(df, city):
 
 
 def restart():
-    """ Handles the question of restart or not
-    """
-    while True:
-        response = input('Would you like to restart? Enter yes or no.\n')
-        if response.lower() == 'yes':
-            break
-        elif response.lower() == 'no':
-            break
-        else:
-            print("Type yes or no")
-    return response
+    """Handles the question of restart or not"""
+    return get_user_input('Would you like to restart? Enter yes or no: ', ['yes', 'no'])
 
 
 def chunk_gen(df):
