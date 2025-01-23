@@ -15,5 +15,11 @@ This is a list of the files used:
 ## Installation
 You may clone this repository to your local machine. The `.scv` files are not available on this repository due to legal issues. Please require those from [Udacity](https://udacity.com).
 
-## Acknowledgements and Credits
+## Credits
 Thanks to Udacity for the creation of the course **"Programming for Data Science with Python."**
+
+## Known Bugs
+No known bugs.
+
+## Date Created
+This README file was created on 01/22/2025.
