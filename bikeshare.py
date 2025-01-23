@@ -216,27 +216,11 @@ def chunk_gen(df):
     def see_data():
         """ Handles the question of displaying any data
         """
-        while True:
-            response = input('Would you like to see the raw data five entries at a time? Enter yes or no.\n') # prompt to show or not the raw data
-            if response.lower() == 'yes':
-                break
-            elif response.lower() == 'no':
-                break
-            else:
-                print("Type yes or no")
-        return response
+        return get_user_input('Would you like to see the raw data five entries at a time? Enter yes or no: ', ['yes', 'no'])
     def more_data():
         """ Handles the question of displaying more data or not
         """
-        while True:
-            response = input('Would you like to see five more entries? Enter yes or no.\n') # prompt to display more data or not
-            if response.lower() == 'yes':
-                break
-            elif response.lower() == 'no':
-                break
-            else:
-                print("Type yes or no")
-        return response
+        return get_user_input('Would you like to see five more entries? Enter yes or no: ', ['yes', 'no'])
     def chunker(iterable, size):
         """ Yields the chunks of size-rows of data to be shown on screen
         """
