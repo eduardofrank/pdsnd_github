@@ -37,52 +37,15 @@ def get_filters():
     Asks user to specify a city, month, and day to analyze.
 
     Returns:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
-    Checks have been provided for month and day
-    All inputs have been normalized
-    Exceptions have been placed to catch ValueErrors
-    KeyboardInterrupt is allowed
+        tuple: city, month, day
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    while True:
-        try:
-            city = input('Type in a city. Choose from Chicago, New York City or Washington: ').strip().lower()  # Normalize input for consistency
-            if city in CITY_DATA:
-                print(f"Great! Data for {city.title()} is available.\n")
-                break
-            else:
-                raise ValueError(f"Sorry, not in dict.")
-        except ValueError:
-            print(f"\nSorry, '{city.title()}' is not available.\nChoose from 'Chicago', 'New York City' or 'Washington'. Please try again.\n")
-    # get user input for month (all, january, february, ... , june)
-    months = ['january', 'february', 'march', 'april', 'may', 'june', 'all'] # a list to check against
-    while True:
-        try:
-            month = input("Choose any month from 'January' to 'June', or type 'All' for the whole six months.: ").strip().lower()  # Normalize input for consistency
-            if month in months:
-                print("Thank you")
-                break
-            else:
-                raise ValueError(f"Sorry, not in list.")
-        except ValueError:
-            print(f"\nSorry, '{month}' is not available.\nChoose from 'January', 'February', 'March', 'April', 'May' or 'June'.\nYou may also type 'All' for no particular month.\n")
-    # get user input for day of week (all, monday, tuesday, ... sunday)
-    days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all'] # a list to check against
-    while True:
-        try:
-            day = input("Choose any day of the week from 'Monday' to 'Sunday', or type 'All' for all days of the week.: ").strip().lower()  # Normalize input for consistency
-            if day in days:
-                print("Thank you")
-                break
-            else:
-                raise ValueError(f"Sorry, not in list.")
-        except ValueError:
-            print(f"\nSorry, '{day}' is not available.\nChoose from 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' or 'Sunday'.\nYou may also type 'All' for no particular day of the week.\n")
+
+    city = get_user_input('Type in a city. Choose from Chicago, New York City, or Washington: ', CITY_DATA.keys())
+    month = get_user_input("Choose any month from 'January' to 'June', or type 'All' for the whole six months: ", months)
+    day = get_user_input("Choose any day of the week from 'Monday' to 'Sunday', or type 'All' for all days of the week: ", days)
+
     print(f"Your filters are '{city.title()}', '{month.title()} and '{day.title()}'")
-    #print('-'*80)
     return city, month, day
 
 
