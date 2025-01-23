@@ -11,3 +11,9 @@ This is a list of the files used:
 * **chicago.csv** - Data for the city of Chicago
 * **new_york_city.csv** - Data for the city of New York
 * **washington.csv** - Data for Washington, DC
+
+## Installation
+You may clone this repository to your local machine. The `.scv` files are not available on this repository due to legal issues. Please require those from [Udacity](https://udacity.com).
+
+## Acknowledgements and Credits
+Thanks to Udacity for the creation of the course **"Programming for Data Science with Python."**
